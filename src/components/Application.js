@@ -21,6 +21,14 @@ export default function Application(props) {
     };
 
     setState({...state, appointments});
+
+    axios.put(`http://localhost:8001/api/appointments/${id}`, { interview })
+    .then(response => {
+      console.log("Status: ", response.status);
+      console.log("Data: ", response.data);
+    }).catch(error => {
+      console.error('Something went wrong!', error);
+    });
   }
 
   const [state, setState] = useState({
