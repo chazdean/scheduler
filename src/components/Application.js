@@ -30,6 +30,30 @@ export default function Application(props) {
     });
   }
 
+  function cancelInterview(id) {
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    console.log("TEST",appointments)
+
+    return axios.delete(`http://localhost:8001/api/appointments/${id}`)
+    .then(response => {
+      console.log("Status: ", response.status);
+      console.log("Data: ", response.data);
+      setState({...state, appointments});
+    }).catch(error => {
+      console.error('Something went wrong!', error);
+    });
+  }
+
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -63,6 +87,7 @@ export default function Application(props) {
         interview={interview}
         interviewers={interviewers}
         bookInterview={bookInterview}
+        cancelInterview={cancelInterview}
       />
     );
   })
