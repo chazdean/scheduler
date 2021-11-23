@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
@@ -18,17 +18,29 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
+  const [message, setMessage] = useState("");
+
   function save(name, interviewer) {
     const interview = {
       student: name,
       interviewer
     };
 
+    setMessage("Saving")
     transition(SAVING)
-
+    
     props.bookInterview(props.id, interview)
     .then(() => {
       transition(SHOW)
+    })
+  }
+
+  function cancel() {
+    setMessage("Deleting")
+    transition(SAVING)
+    props.cancelInterview(props.id)
+    .then(() => {
+      transition(EMPTY)
     })
   }
 
@@ -40,6 +52,7 @@ export default function Appointment(props) {
         <Show
           student={props.interview.student}
           interviewer={props.interview.interviewer}
+          delete={cancel}
         />
       )} 
       {mode === CREATE && (
@@ -51,7 +64,7 @@ export default function Appointment(props) {
       )}
       {mode === SAVING && (
         <Status
-          message={"Saving"}
+          message={message}
         />
       )} 
     </article>
