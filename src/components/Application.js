@@ -27,6 +27,7 @@ export default function Application(props) {
       setState({...state, appointments});
     }).catch(error => {
       console.error('Something went wrong!', error);
+      return error
     });
   }
 
@@ -51,6 +52,7 @@ export default function Application(props) {
       setState({...state, appointments});
     }).catch(error => {
       console.error('Something went wrong!', error);
+      return error
     });
   }
 
