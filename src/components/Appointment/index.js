@@ -26,37 +26,42 @@ export default function Appointment(props) {
 
   const [message, setMessage] = useState("");
 
+  //Function that saves appointments to state/database
   function save(name, interviewer) {
     const interview = {
       student: name,
       interviewer
     };
 
+    //Boolean value created to trigger if an update to spots is needed
+    let update = false;
+
+    if (mode === "EDIT") {
+    update = true;
+    }
+
     setMessage("Saving")
     transition(LOADING)
     
-    props.bookInterview(props.id, interview)
-    .then((error) => {
-      console.log("THIS IS ERROR{{", error)
-      if (error) {
-        transition(ERROR_SAVE, true)
-      } else {
+    props.bookInterview(props.id, interview, update)
+    .then(() => {
       transition(SHOW)
-    }
+    })
+    .catch((error)=>{
+      transition(ERROR_SAVE, true)
     })
   }
 
+  //Function deletes appointments from database
   function cancel() {
     setMessage("Deleting")
     transition(LOADING)
     props.cancelInterview(props.id)
-    .then((error) => {
-      console.log("THIS IS ERROR{{", error)
-      if (error) {
-        transition(ERROR_DELETE, true)
-      } else {
+    .then(() => {
       transition(EMPTY)
-      }
+    })
+    .catch((error)=>{
+      transition(ERROR_DELETE, true)
     })
   }
 
@@ -64,6 +69,7 @@ export default function Appointment(props) {
     transition(EDIT)
   }
 
+  //Appointment component handles transitions between modes
   return (
     <article className="appointment">
       <Header key={props.id} time={props.time}/>
