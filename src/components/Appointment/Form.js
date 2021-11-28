@@ -6,6 +6,8 @@ export default function Form(props) {
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
+
+  // Functions used to clear user input fields on cancel button click
   const reset = () => {
     setStudent("");
     setInterviewer(null);
