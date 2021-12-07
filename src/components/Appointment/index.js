@@ -71,7 +71,7 @@ export default function Appointment(props) {
 
   //Appointment component handles transitions between modes
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <Header key={props.id} time={props.time}/>
       {mode === EMPTY && <Empty onAdd={() => {console.log("Clicked onAdd"); transition("CREATE")}} />}
       {mode === SHOW && (
