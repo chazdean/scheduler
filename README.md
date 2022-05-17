@@ -25,7 +25,7 @@ They can also delete their interview, edit their name and change their interview
 
 #### Main View
 ![Main View](./screenshots/main_view.png)
-#### Creat/Edit
+#### Create/Edit
 ![Create/Edit](./screenshots/create_edit.png)
 #### Saving
 ![Saving](./screenshots/saving.png)
